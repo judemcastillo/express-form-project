@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <% if (typeof errors !== 'undefined' && errors.length) { %>
+      <ul style="color:red">
+        <% errors.forEach(e => { %>
+          <li><%= e.msg %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+
+    <form action="/search" method="GET">
+      <label for="searchEmail">Search Email: </label>
+      <input
+        type="email"
+        name="searchEmail"
+        id="searchEmail"
+        value="<%= (values && values.searchEmail) || '' %>"
+      />
+      <br/><hr/>
+
+      <label for="searchName">Search Name: </label>
+      <input
+        type="text"
+        name="searchName"
+        id="searchName"
+        value="<%= (values && values.searchName) || '' %>"
+      />
+      <button type="submit">Search</button>
+    </form>
+
+    <ul>
+      <% if (!users || users.length === 0) { %>
+        <li>No users found.</li>
+      <% } else { %>
+        <% users.forEach(function(user) { %>
+          <li>
+            <strong>Name:</strong> <%= user.firstName %> <%= user.lastName %><br />
+            <strong>Email:</strong> <%= user.email %><br />
+            <strong>Age:</strong> <%= user.age %><br />
+            <strong>Bio:</strong> <%= user.bio %>
+          </li>
+        <% }) %>
+      <% } %>
+    </ul>
+
+    <p><a href="/">Back to list</a></p>
+  </body>
+</html>
